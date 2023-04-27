@@ -1,10 +1,13 @@
 <script>
-  import {createEventDispatcher} from "svelte";
+  import {TodosStore} from "../store"
 
-  const dispatch = createEventDispatcher();
   let value = "";
   const handleSubmit = () => {
-    dispatch("add-todo", value)
+    TodosStore.update(prev => [{
+      id: Math.random(),
+      text : value,
+      completed: false
+    }, ...prev])
     value = "";
   }
 </script>

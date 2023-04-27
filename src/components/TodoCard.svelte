@@ -1,15 +1,17 @@
 <script>
-  import {createEventDispatcher} from "svelte"
+  import {TodosStore} from "../store"
   import Card from "./Card.svelte";
   export let todo;
 
-  const dispatch = createEventDispatcher()
-
   const toggleChecked = () => 
-    todo.completed = !todo.completed;
+    TodosStore.update(prev => 
+      prev.map(prevTodo => prevTodo.id === todo.id ? {...prevTodo, completed : !prevTodo.completed} : prevTodo)
+    )
     
   const deleteTodo = () => 
-    dispatch("delete-todo", todo.id);
+  TodosStore.update(prev => 
+      prev.filter(prevTodo => prevTodo.id !== todo.id)
+    );
     
 </script>
 

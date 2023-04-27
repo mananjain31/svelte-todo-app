@@ -1,11 +1,10 @@
 <script>
   import TodoCard from "./TodoCard.svelte";
-
-  export let todos;
+  import {TodosStore} from "../store"
 </script>
 
 <div class="todo-list">
-  {#each todos as todo}
+  {#each $TodosStore as todo}
     <TodoCard {todo} on:delete-todo/>
   {/each}
 </div>
